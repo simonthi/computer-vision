@@ -1,0 +1,65 @@
+SplineFontDB: 3.2
+FontName: Untitled1
+FullName: Untitled1
+FamilyName: Untitled1
+Weight: Regular
+Copyright: Copyright (c) 2023, Simon Thiefes
+UComments: "2023-3-9: Created with FontForge (http://fontforge.org)"
+Version: 001.000
+ItalicAngle: 0
+UnderlinePosition: -80
+UnderlineWidth: 40
+Ascent: 692
+Descent: 308
+InvalidEm: 0
+LayerCount: 2
+Layer: 0 0 "Hinten" 1
+Layer: 1 0 "Vorne" 0
+XUID: [1021 694 -516466584 4177015]
+FSType: 0
+OS2Version: 0
+OS2_WeightWidthSlopeOnly: 0
+OS2_UseTypoMetrics: 1
+CreationTime: 1678365446
+ModificationTime: 1678881944
+PfmFamily: 17
+TTFWeight: 400
+TTFWidth: 5
+LineGap: 72
+VLineGap: 0
+OS2TypoAscent: 0
+OS2TypoAOffset: 1
+OS2TypoDescent: 0
+OS2TypoDOffset: 1
+OS2TypoLinegap: 72
+OS2WinAscent: 0
+OS2WinAOffset: 1
+OS2WinDescent: 0
+OS2WinDOffset: 1
+HheadAscent: 0
+HheadAOffset: 1
+HheadDescent: 0
+HheadDOffset: 1
+OS2Vendor: 'PfEd'
+MarkAttachClasses: 1
+DEI: 91125
+Encoding: ISO8859-1
+UnicodeInterp: none
+NameList: AGL For New Fonts
+DisplaySize: -48
+AntiAlias: 1
+FitToEm: 0
+WinInfo: 44 22 6
+BeginPrivate: 0
+EndPrivate
+BeginChars: 256 1
+
+StartChar: A
+Encoding: 65 65 0
+Width: 787
+VWidth: 800
+Flags: HWO
+LayerCount: 2
+EndChar
+EndChars
+EndSplineFont
