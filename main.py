@@ -13,13 +13,11 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF, renderPM
 
 
-
-
-
-
+        
+        
 def main_loop(scheduler): 
     # schedule the next call first
-    scheduler.enter(5, 1, main_loop, (scheduler,))
+    scheduler.enter(30, 1, main_loop, (scheduler,))
     x = char_creator()
     print(x)
     with open('mpost/temp.mp', 'w') as t:
@@ -32,6 +30,8 @@ def main_loop(scheduler):
     
     with open('font/temp.txt', 'w') as t:
         t.write(char)
+    os.system('./cleaner.sh')
+    print("cleaned")
     os.system("fontforge -script font/font_baker.py")
 
 
@@ -72,6 +72,9 @@ def char_creator():
 
     mp_code += "endchar("+str(int(num_coord)-1)+");\nend."
     return(mp_code)
+
+
+
 
 
 
