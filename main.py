@@ -16,7 +16,27 @@ from reportlab.graphics import renderPDF, renderPM
 import tkinter as tk
 from PIL import Image, ImageTk
 
-        
+    
+    
+    
+root = tk.Tk()
+root.wm_title('Computer/Vision')
+width= root.winfo_screenwidth()
+height= root.winfo_screenheight()
+canvas = tk.Canvas(root, width=width, height=height)
+img_path = 'mpost/output-svg/65.png'
+image = Image.open(img_path)
+img_width, img_height = image.size 
+img = ImageTk.PhotoImage(image, size=(img_width, img_height))
+char_img = canvas.create_image(width/2-img_width/2, 0, image=img, tag="main_img", anchor="nw")
+canvas.pack(fill=tk.BOTH, expand=True, padx=0, pady=20)
+with open("font/temp.txt", 'r') as f:
+    char = f.read()
+text = canvas.create_text(width/2, height-128, text = char, font = ("monono", 32))    
+root.update()  
+
+
+
         
 def main_loop(scheduler): 
     # schedule the next call first
@@ -37,8 +57,9 @@ def main_loop(scheduler):
     print("cleaned")
     os.system("fontforge -script font/font_baker.py")
     
-    display()
 
+    display()
+    root.update()  
 
 
 def char_creator():
@@ -46,7 +67,7 @@ def char_creator():
 
     num_coord = str(random.randint(3, 5))
 
-    num_strokes = random.randint(1, 4)
+    num_strokes = random.randint(2, 4)
 
     mp_code = "input mpost/def;\n"
 
@@ -80,39 +101,20 @@ def char_creator():
 
 
 def display():
-    
     img_path = 'mpost/output-svg/65.png'
     image = Image.open(img_path)
-    img = ImageTk.PhotoImage(image)
-
-    canvas.itemconfig("main_img", image=img)
-    canvas.place(x=width/2-img.width()/2, y=0)
-    
+    img_width, img_height = image.size 
+    img2 = ImageTk.PhotoImage(image, size=(img_width, img_height))
+    canvas.itemconfigure(char_img, image=img2)
+    canvas.coords(char_img, width/2-img_width/2, 0)
+    canvas.image=img2
     with open("font/temp.txt", 'r') as f:
         char = f.read()
+    canvas.itemconfigure(text, text=char)
     
-    text = tk.Label(root, text=char)
-    text.place(x=width/2, y=height-128)
     
-    root.update()
 
 
-root = tk.Tk()
-width= root.winfo_screenwidth()
-height= root.winfo_screenheight()
-root.wm_title('Computer/Vision')
-root.configure(width=width, height=height)
-
-img_path = 'mpost/output-svg/65.png'
-image = Image.open(img_path)
-img = ImageTk.PhotoImage(image)
-canvas = tk.Canvas(root)
-canvas.pack()
-canvas.delete("all")
-canvas.create_image(0, 0, image=img, tag="main_img", anchor="nw")
-canvas.place(x=width/2-img.width()/2, y=0)
-canvas.image=img
-display()
 scheduler = sched.scheduler(time.time, time.sleep)
 scheduler.enter(0, 1, main_loop, (scheduler,))
 scheduler.run()
