@@ -13,6 +13,9 @@ from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF, renderPM
 
 
+import tkinter as tk
+from PIL import Image, ImageTk
+
         
         
 def main_loop(scheduler): 
@@ -33,7 +36,8 @@ def main_loop(scheduler):
     os.system('./cleaner.sh')
     print("cleaned")
     os.system("fontforge -script font/font_baker.py")
-
+    
+    display()
 
 
 
@@ -75,10 +79,40 @@ def char_creator():
 
 
 
+def display():
+    
+    img_path = 'mpost/output-svg/65.png'
+    image = Image.open(img_path)
+    img = ImageTk.PhotoImage(image)
+
+    canvas.itemconfig("main_img", image=img)
+    canvas.place(x=width/2-img.width()/2, y=0)
+    
+    with open("font/temp.txt", 'r') as f:
+        char = f.read()
+    
+    text = tk.Label(root, text=char)
+    text.place(x=width/2, y=height-128)
+    
+    root.update()
 
 
+root = tk.Tk()
+width= root.winfo_screenwidth()
+height= root.winfo_screenheight()
+root.wm_title('Computer/Vision')
+root.configure(width=width, height=height)
 
-
+img_path = 'mpost/output-svg/65.png'
+image = Image.open(img_path)
+img = ImageTk.PhotoImage(image)
+canvas = tk.Canvas(root)
+canvas.pack()
+canvas.delete("all")
+canvas.create_image(0, 0, image=img, tag="main_img", anchor="nw")
+canvas.place(x=width/2-img.width()/2, y=0)
+canvas.image=img
+display()
 scheduler = sched.scheduler(time.time, time.sleep)
 scheduler.enter(0, 1, main_loop, (scheduler,))
 scheduler.run()
