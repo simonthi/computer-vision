@@ -5,17 +5,16 @@ import random
 
 import sched, time
 
-from PIL import Image
+from PIL import Image, ImageTk
 
 import pytesseract
 
 from svglib.svglib import svg2rlg
 from reportlab.graphics import renderPDF, renderPM
 
-
 import tkinter as tk
-from PIL import Image, ImageTk
 
+import cairosvg
     
     
     
@@ -46,9 +45,10 @@ def main_loop(scheduler):
     with open('mpost/temp.mp', 'w') as t:
         t.write(x)
     os.system("mpost mpost/temp.mp")
-    drawing = svg2rlg("mpost/output-svg/65.svg")
+    #drawing = svg2rlg("mpost/output-svg/65.svg")
+    cairosvg.svg2png(url="mpost/output-svg/65.svg", write_to="mpost/output-svg/65.png")
     custom_oem_psm_config = r'--oem 1 --psm 10'
-    renderPM.drawToFile(drawing, "mpost/output-svg/65.png", fmt="PNG")
+    #renderPM.drawToFile(drawing, "mpost/output-svg/65.png", fmt="PNG")
     char = pytesseract.image_to_string(Image.open('mpost/output-svg/65.png'), config=custom_oem_psm_config)
     
     with open('font/temp.txt', 'w') as t:
