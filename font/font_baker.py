@@ -21,8 +21,6 @@ def fea_writer(table, glyph, chars):
 with open("font/temp.txt", 'r') as f:
     char = f.read()
 print(char)
-char_uni = int(get_uni(char), 16)
-print(char_uni)
 print(len(char))    
 
 font = fontforge.open('font/Computer-Vision.sfd')
@@ -44,6 +42,8 @@ if(len(char) > 2):
     fea = fea_writer("liga-1", glyph, char)
 
 else:
+    char_uni = int(get_uni(char), 16)
+    print(char_uni)
     if(font.findEncodingSlot(char_uni) != -1):
         print("Alert")
         counter = 1
