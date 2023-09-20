@@ -19,16 +19,16 @@ def fea_writer(table, glyph, chars):
     
 
 with open("font/temp.txt", 'r') as f:
-    char = f.read()
+    char = f.readline().strip('\n')
 print(char)
 print(len(char))    
 
 font = fontforge.open('font/Computer-Vision.sfd')
 
-if(len(char) == 1):
+if(len(char) == 0):
     sys.exit()
 
-if(len(char) > 2):
+if(len(char) > 1):
     if(font.findEncodingSlot(char) != -1):
         print("Alert")
         counter = 1
