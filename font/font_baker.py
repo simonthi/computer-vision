@@ -3,6 +3,7 @@ import os
 import re
 
 
+
 def get_uni(string):
     res = (re.sub('.', lambda x: r'%04X' % ord(x.group()), string))
     return res
@@ -59,5 +60,3 @@ else:
 
 font.save('font/Computer-Vision.sfd')
 font.generate('font/Computer-Vision.otf')
-
-
