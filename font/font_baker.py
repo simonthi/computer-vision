@@ -37,9 +37,10 @@ if(len(char) > 1):
         glyph = font.createChar(-1, char+".alt"+str(counter))
     else:
         glyph = font.createChar(-1, char)
+        fea = fea_writer("liga-1", glyph, char)
     glyph.importOutlines('mpost/output-svg/65.svg')
     glyph.right_side_bearing = int(glyph.left_side_bearing)
-    fea = fea_writer("liga-1", glyph, char)
+    
 
 else:
     char_uni = int(get_uni(char), 16)
