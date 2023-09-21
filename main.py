@@ -39,8 +39,8 @@ char_img = canvas.create_image(width/2-img_width/2, height/2-img_height/2-100, i
 canvas.pack(fill=tk.BOTH, expand=True, padx=0, pady=0)
 with open("font/temp.txt", 'r') as f:
     char = f.readline().strip('\n')
-text = canvas.create_text(2*width/3+width/3/2, height/2-100, text = char, font = ("monono-Regular", 64), anchor="n")  
-code = canvas.create_text(64, height/2-100, text = "", font = ("monono-Regular", 16), anchor="w")  
+text = canvas.create_text(2*width/3+width/3/2, height/2-100, text = char, font = ("monono", 64), anchor="n")  
+code = canvas.create_text(64, height/2-100, text = "", font = ("monono", 12), anchor="w")  
 descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description", font = ("monono", 24), anchor="n")
 canvas.create_line(width/3, 0, width/3, height-200, fill="black", tags="line")
 descr2 = canvas.create_text(width/2, 24, text = "Generated Sign", font = ("monono", 24), anchor="n")
