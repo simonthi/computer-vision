@@ -1,6 +1,8 @@
 #import fontforge
 import os
 
+from subprocess import call
+
 import random
 
 import sched, time
@@ -39,15 +41,15 @@ char_img = canvas.create_image(width/2-img_width/2, height/2-img_height/2-100, i
 canvas.pack(fill=tk.BOTH, expand=True, padx=0, pady=0)
 with open("font/temp.txt", 'r') as f:
     char = f.readline().strip('\n')
-text = canvas.create_text(2*width/3+width/3/2, height/2-100, text = char, font = ("monono", 64), anchor="n")  
+text = canvas.create_text(2*width/3+width/3/2, height/2-200, text = char, font = ("monono", 128), anchor="n")  
 code = canvas.create_text(64, height/2-100, text = "", font = ("monono", 12), anchor="w")  
-descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description", font = ("monono", 24), anchor="n")
+descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description", font = ("monono", 12), anchor="n")
 canvas.create_line(width/3, 0, width/3, height-200, fill="black", tags="line")
-descr2 = canvas.create_text(width/2, 24, text = "Generated Sign", font = ("monono", 24), anchor="n")
+descr2 = canvas.create_text(width/2, 24, text = "Generated Sign", font = ("monono", 12), anchor="n")
 canvas.create_line(2*width/3, 0, 2*width/3, height-200, fill="black", tags="line")
-descr3 = canvas.create_text(2*width/3+width/3/2, 24, text = "Recognized Text", font = ("monono", 24), anchor="n")
+descr3 = canvas.create_text(2*width/3+width/3/2, 24, text = "Recognized Text", font = ("monono", 12), anchor="n")
 canvas.create_line(0, height-200, width, height-200, fill="black", tags="line")
-descr4 = canvas.create_text(24, height-160, text = "Latest Additions to font", font = ("monono", 24), anchor="sw")
+descr4 = canvas.create_text(24, height-160, text = "Latest Additions to font", font = ("monono", 12), anchor="sw")
 for i in range(5):
     l[i] = Image.open("mpost/output-svg/"+str(i)+".png")
     l[i] = ImageTk.PhotoImage(l[i])
@@ -60,6 +62,7 @@ root.update()
         
 def main_loop(scheduler): 
     scheduler.enter(10, 1, main_loop, (scheduler,))
+    scheduler.enter(86400, 1, push)
     x = char_creator()
     print(x)
     with open('mpost/temp.mp', 'w') as t:
@@ -126,8 +129,11 @@ def char_creator():
 def display():
     canvas.configure(bg=random.sample(COLORS, 1)[0])
     canvas.itemconfigure(text, text="")
+    canvas.itemconfigure(code, text="")
     canvas.itemconfigure(char_img, image=None)
     canvas.image=None
+    root.update() 
+    time.sleep(1)
     with open('mpost/temp.mp', 'r') as t:
         x = t.read()
     canvas.itemconfigure(code, text=x)
@@ -151,9 +157,18 @@ def display():
         char = f.readline().strip('\n')
     time.sleep(3)
     canvas.itemconfigure(text, text=char)
+    root.update()
+    
+    
+def push():
+    commit_message = "Adding current stage of font"
+    os.system('git add font/Computer-Vision.sfd')
+    os.system('git commit -m "'+ commit_message +'"')
+    os.system('git push origin computer-1@exhibition')
     
     
 glyph_counter = 0
 scheduler = sched.scheduler(time.time, time.sleep)
 scheduler.enter(0, 1, main_loop, (scheduler,))
+scheduler.enter(1, 1, push)
 scheduler.run()
