@@ -1,0 +1,4 @@
+pillow
+pytesseract
+svglib
+cairosvg
