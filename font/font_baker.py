@@ -59,4 +59,3 @@ else:
     
 
 font.save('font/Computer-Vision.sfd')
-font.generate('font/Computer-Vision.otf')
