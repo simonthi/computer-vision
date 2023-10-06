@@ -21,11 +21,16 @@ import cairosvg
 import time
     
     
-    
 COLORS = ['blue', 'yellow', 'orangered', 'darkorange', 'darkviolet', 'springgreen']    
 l = ['mpost/output-svg/1.png', 'mpost/output-svg/2.png', 'mpost/output-svg/3.png', 'mpost/output-svg/4.png', 'mpost/output-svg/5.png']
 disp_l=['mpost/output-svg/1.png', 'mpost/output-svg/2.png', 'mpost/output-svg/3.png', 'mpost/output-svg/4.png', 'mpost/output-svg/5.png']
 latest = ['mpost/output-svg/1.png', 'mpost/output-svg/2.png', 'mpost/output-svg/3.png', 'mpost/output-svg/4.png', 'mpost/output-svg/5.png']
+
+t = time.localtime()
+curr = time.strftime("%m-%d-%Y, %H:%M:%S", t)
+
+global glyph_counter
+glyph_counter = 59999
     
 root = tk.Tk()
 root.wm_title('Computer/Vision')
@@ -43,7 +48,7 @@ with open("font/temp.txt", 'r') as f:
     char = f.readline().strip('\n')
 text = canvas.create_text(2*width/3+width/3/2, height/2-200, text = char, font = ("monono", 128), anchor="n")  
 code = canvas.create_text(64, height/2-100, text = "", font = ("monono", 12), anchor="w")  
-descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description", font = ("monono", 12), anchor="n")
+descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description\ngenerated @"+str(curr)+" CEST", font = ("monono", 12), anchor="n")
 canvas.create_line(width/3, 0, width/3, height-200, fill="black", tags="line")
 descr2 = canvas.create_text(width/2, 24, text = "Generated Sign", font = ("monono", 12), anchor="n")
 canvas.create_line(2*width/3, 0, 2*width/3, height-200, fill="black", tags="line")
@@ -81,7 +86,6 @@ def main_loop(scheduler):
     print("cleaned")
     os.system("fontforge -script font/font_baker.py")
     
-
     display()
     root.update()  
 
@@ -137,6 +141,9 @@ def display():
     with open('mpost/temp.mp', 'r') as t:
         x = t.read()
     canvas.itemconfigure(code, text=x)
+    t = time.localtime()
+    curr = time.strftime("%m-%d-%Y, %H:%M:%S", t)
+    canvas.itemconfigure(descr1, text="Random Character Description\ngenerated @"+str(curr)+" CEST")
     root.update()  
     time.sleep(3)
     img_path = 'mpost/output-svg/65.png'
@@ -161,13 +168,28 @@ def display():
     
     
 def push():
+    global glyph_counter 
+    with open('font/no_glyphs.txt', 'r') as t:
+        x = t.read()
+    new_no_glyphs = int(x) + glyph_counter
+    if (new_no_glyphs > 60000):
+        with open('font/no_glyphs.txt', 'w') as t:
+            t.write(str(0))
+        glyph_counter = 0
+        t = time.localtime()
+        now = time.strftime("%y%m%d", t)
+        os.system('mv font/Computer-Vision.sfd font/'+now+'Computer-Vision.sfd')
+        os.system('cp font/blank.sfd font/Computer-Vision.sfd')
+    else:
+        with open('font/no_glyphs.txt', 'w') as t:
+            t.write(str(new_no_glyphs))
     commit_message = "Adding current stage of font"
-    os.system('git add font/Computer-Vision.sfd')
+    os.system('git add font/\*.sfd')
     os.system('git commit -m "'+ commit_message +'"')
     os.system('git push origin computer-1@exhibition')
     
     
-glyph_counter = 0
+
 scheduler = sched.scheduler(time.time, time.sleep)
 scheduler.enter(0, 1, main_loop, (scheduler,))
 scheduler.enter(1, 1, push)
