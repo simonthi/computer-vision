@@ -20,7 +20,7 @@ OS2Version: 0
 OS2_WeightWidthSlopeOnly: 0
 OS2_UseTypoMetrics: 1
 CreationTime: 1678365446
-ModificationTime: 1695206794
+ModificationTime: 1696582801
 PfmFamily: 17
 TTFWeight: 400
 TTFWidth: 5
@@ -40,7 +40,7 @@ HheadAOffset: 1
 HheadDescent: 0
 HheadDOffset: 1
 OS2Vendor: 'PfEd'
-Lookup: 4 0 0 "liga" { "liga-1"  } []
+Lookup: 4 0 1 "liga" { "liga-1"  } ['liga' ('latn' <'dflt' > ) ]
 MarkAttachClasses: 1
 DEI: 91125
 LangName: 1033
