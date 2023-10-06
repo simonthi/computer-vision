@@ -30,7 +30,7 @@ t = time.localtime()
 curr = time.strftime("%m-%d-%Y, %H:%M:%S", t)
 
 global glyph_counter
-glyph_counter = 59999
+glyph_counter = 0
     
 root = tk.Tk()
 root.wm_title('Computer/Vision')
