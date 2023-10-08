@@ -67,7 +67,6 @@ root.update()
         
 def main_loop(scheduler): 
     scheduler.enter(10, 1, main_loop, (scheduler,))
-    scheduler.enter(86400, 1, push)
     x = char_creator()
     print(x)
     with open('mpost/temp.mp', 'w') as t:
@@ -168,7 +167,8 @@ def display():
     
     
 def push():
-    global glyph_counter 
+    global glyph_counter
+    scheduler.enter(120, 1, push)
     with open('font/no_glyphs.txt', 'r') as t:
         x = t.read()
     new_no_glyphs = int(x) + glyph_counter
