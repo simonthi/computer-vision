@@ -186,7 +186,7 @@ def push():
     commit_message = "Adding current stage of font"
     os.system('git add font/\*.sfd')
     os.system('git commit -m "'+ commit_message +'"')
-    os.system('git push origin computer-1@exhibition')
+    os.system('git push origin computer-2@exhibition')
     
     
 
