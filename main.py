@@ -48,7 +48,7 @@ with open("font/temp.txt", 'r') as f:
     char = f.readline().strip('\n')
 text = canvas.create_text(2*width/3+width/3/2, height/2-200, text = char, font = ("monono", 128), anchor="n")  
 code = canvas.create_text(64, height/2-100, text = "", font = ("monono", 12), anchor="w")  
-descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description\ngenerated @"+str(curr)+" CEST", font = ("monono", 12), anchor="n")
+descr1 = canvas.create_text(width/3/2, 24, text = "Random Character Description\ngenerated @"+str(curr)+"", font = ("monono", 12), anchor="n")
 canvas.create_line(width/3, 0, width/3, height-200, fill="black", tags="line")
 descr2 = canvas.create_text(width/2, 24, text = "Generated Sign", font = ("monono", 12), anchor="n")
 canvas.create_line(2*width/3, 0, 2*width/3, height-200, fill="black", tags="line")
@@ -66,7 +66,7 @@ root.update()
 
         
 def main_loop(scheduler): 
-    scheduler.enter(10, 1, main_loop, (scheduler,))
+    scheduler.enter(30, 1, main_loop, (scheduler,))
     x = char_creator()
     print(x)
     with open('mpost/temp.mp', 'w') as t:
@@ -142,7 +142,7 @@ def display():
     canvas.itemconfigure(code, text=x)
     t = time.localtime()
     curr = time.strftime("%m-%d-%Y, %H:%M:%S", t)
-    canvas.itemconfigure(descr1, text="Random Character Description\ngenerated @"+str(curr)+" CEST")
+    canvas.itemconfigure(descr1, text="Random Character Description\ngenerated @"+str(curr)+"")
     root.update()  
     time.sleep(3)
     img_path = 'mpost/output-svg/65.png'
@@ -168,7 +168,7 @@ def display():
     
 def push():
     global glyph_counter
-    scheduler.enter(120, 1, push)
+    scheduler.enter(86400, 1, push)
     with open('font/no_glyphs.txt', 'r') as t:
         x = t.read()
     new_no_glyphs = int(x) + glyph_counter
