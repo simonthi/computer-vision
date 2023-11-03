@@ -1,7 +1,7 @@
 # Computer/Vision
 
 ## What is this?
-_Computer/Vision_ is an artwork conceived by Simon Thiefes and originally made for the exhibiton "Quasi experimental writing systems" at the Hoffmitz Milken Center for typography at ArtCenter, Pasadena.  
+_Computer/Vision_ is an artwork conceived by Simon Thiefes and originally made for the exhibiton [Quasi experimental writing systems](https://hmctartcenter.org/exhibitions/quasi-experimental-writing-systems/) at the Hoffmitz Milken Center for typography at ArtCenter, Pasadena.  
 
 It runs on low key computing equipment. If you want to run it at home see installation instructions below.
 
