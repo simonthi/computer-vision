@@ -37,8 +37,8 @@ Further packages you will need:
 `sudo apt-get install texlive-metapost`
 * Get Tesseract
 `sudo apt install tesseract-ocr`
-*And get Fontforge
-`sudo apt-get -y install python3-fontforge``
+* And get Fontforge
+`sudo apt-get -y install python3-fontforge`
 
 Bravo, you are nearly there. You just need to cd into your directory that you cloned this repo to and run the script:
 `python3 main.py`
